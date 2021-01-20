@@ -13,3 +13,5 @@ jobs:
           command: ./gradlew build
       - run:
           command: ./gradlew testDebugUnitTest
+      - store_test_results:
+          path: test-results
