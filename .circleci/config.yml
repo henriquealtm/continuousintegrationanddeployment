@@ -17,3 +17,6 @@ jobs:
           command: ./gradlew testDebugUnitTest
       - store_test_results:
           path: app/build/test-results
+      - store_artifacts:
+          path: app/build/outputs/debug
+          destination: artifact-file
