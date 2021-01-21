@@ -6,7 +6,7 @@ orbs:
 # d-... -> develop jobs
 # r-... -> release jobs
 jobs:
-  build:
+  d-build:
     executor: android/android
     steps:
       - checkout
@@ -16,7 +16,7 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
 
-  test:
+  d-test:
     executor: android/android
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - build:
-      - test:
+      - d-build
+      - d-test:
           requires:
-            - build
+            - d-build
