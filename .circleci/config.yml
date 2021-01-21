@@ -31,7 +31,7 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - d-build
+      - d-build:
           filters:
             branches:
               ignore:
