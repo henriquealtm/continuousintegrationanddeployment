@@ -32,6 +32,14 @@ workflows:
   build-test:
     jobs:
       - d-build
+          filters:
+            branches:
+              ignore:
+                - master
       - d-test:
-        requires:
-          - d-build
+          requires:
+            - d-build
+          filters:
+            branches:
+              ignore:
+                - master
