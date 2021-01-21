@@ -7,9 +7,6 @@ jobs:
 
   ## Build and test every branch
   build:
-    branches:
-      only:
-        - master
     executor: android/android
     steps:
       - checkout
