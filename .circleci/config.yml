@@ -3,6 +3,13 @@ version: 2.1
 orbs:
   android: circleci/android@0.2.1
 
+
+references:
+
+  general_cache_key: &general_cache_key
+    key: app-{{ checksum "build.gradle.kts" }}-{{ checksum "app/build.gradle.kts" }}-{{ checksum ".circleci/config.yml" }}-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+
+
 jobs:
   build:
     executor: android/android
@@ -11,22 +18,20 @@ jobs:
       - run:
           name: Build
           command: ./gradlew build
+      - store_artifacts:
+          path: app/build/outputs/apk/debug/app-debug.apk
+
   test:
     executor: android/android
     steps:
       - checkout
+      - restore_cache:
+          <<: *general_cache_key
       - run:
           name: Unit Tests
           command: ./gradlew testDebugUnitTest
       - store_test_results:
           path: app/build/test-results
-
-  artifact:
-    executor: android/android
-    steps:
-      - checkout
-      - store_artifacts:
-          path: app/build/outputs/apk/debug/app-debug.apk
 
 workflows:
   build-test:
@@ -35,8 +40,4 @@ workflows:
       - test:
           requires:
             - build
-      - artifact:
-            requires:
-            - test
-
 
