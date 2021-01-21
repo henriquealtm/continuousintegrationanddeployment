@@ -4,9 +4,14 @@ orbs:
   android: circleci/android@0.2.1
 
 jobs:
+
+  ## Build and test every branch
   build:
     executor: android/android
-
+    branches:
+      ignore:
+        - master
+        - /feature-.*/
     steps:
       - checkout
       - run:
@@ -19,3 +24,16 @@ jobs:
           path: app/build/test-results
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
+
+  ## Build release and deploy it on Google Play
+  build-deploy-release:
+    executor: android/android
+    branches:
+      only:
+        - master
+        - /feature-.*/
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: ./gradlew build
