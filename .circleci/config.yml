@@ -3,8 +3,10 @@ version: 2.1
 orbs:
   android: circleci/android@0.2.1
 
+# d-... -> develop jobs
+# r-... -> release jobs
 jobs:
-  build:
+  d-build:
     executor: android/android
     steps:
       - checkout
@@ -14,7 +16,7 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/debug/app-debug.apk
 
-  test:
+  d-test:
     executor: android/android
     steps:
       - checkout
@@ -29,8 +31,17 @@ jobs:
 workflows:
   build-test:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
+      - d-build:
+        filters:
+          branches:
+            ignore:
+              - master
+      - d-test:
+        requires:
+          - d-build
+        filters:
+          branches:
+            ignore:
+              - master
+
 
