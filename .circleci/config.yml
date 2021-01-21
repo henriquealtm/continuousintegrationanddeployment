@@ -11,7 +11,6 @@ jobs:
     branches:
       ignore:
         - master
-        - /feature-.*/
     steps:
       - checkout
       - run:
@@ -26,14 +25,13 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
 
   ## Build release and deploy it on Google Play
-  build-deploy-release:
-    executor: android/android
-    branches:
-      only:
-        - master
-        - /feature-.*/
-    steps:
-      - checkout
-      - run:
-          name: Build
-          command: ./gradlew build
+#  build-deploy-release:
+#    executor: android/android
+#    branches:
+#      only:
+#        master
+#    steps:
+#      - checkout
+#      - run:
+#          name: Build
+#          command: ./gradlew build
