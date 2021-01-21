@@ -13,6 +13,7 @@ jobs:
           command: ./gradlew build
   test:
     executor: android/android
+      - checkout
     steps:
       - run:
           name: Unit Tests
