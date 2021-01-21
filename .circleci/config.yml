@@ -3,8 +3,8 @@ version: 2.1
 orbs:
   android: circleci/android@0.2.1
 
-# d-... -> develop jobs
-# r-... -> release jobs
+# Job prefix "d-" -> develop jobs
+# Job prefix "r-" -> release jobs
 jobs:
   d-build:
     executor: android/android
@@ -33,5 +33,5 @@ workflows:
     jobs:
       - d-build
       - d-test:
-          requires:
-            - d-build
+        requires:
+          - d-build
