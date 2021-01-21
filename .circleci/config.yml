@@ -13,13 +13,20 @@ jobs:
           command: ./gradlew build
   test:
     executor: android/android
-      - checkout
     steps:
+      - checkout
       - run:
           name: Unit Tests
           command: ./gradlew testDebugUnitTest
       - store_test_results:
           path: app/build/test-results
+
+  artifact:
+    executor: android/android
+    steps:
+      - checkout
+      - store_artifacts:
+          path: app/build/outputs/apk/debug/app-debug.apk
 
 workflows:
   build-test:
@@ -28,7 +35,8 @@ workflows:
       - test:
           requires:
             - build
+      - artifact:
+            requires:
+            - test
 
 
-#      - store_artifacts:
-#          path: app/build/outputs/apk/debug/app-debug.apk
