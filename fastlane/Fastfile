@@ -42,6 +42,9 @@ platform :android do
      task: 'bundle',
      build_type: 'Release'
    )
-   upload_to_play_store skip_upload_apk:true
+   upload_to_play_store(
+      skip_upload_apk:true,
+      track:'internal'
+   )
   end
 end
