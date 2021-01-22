@@ -3,6 +3,34 @@ plugins {
     id 'kotlin-android'
 }
 
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 1
+ext.versionClassifier = null
+ext.isSnapShot = false
+ext.minSdkVersion = 21
+
+private Integer generateVersionCode() {
+    return ext.minSdkVersion * 10000000 + ext.versionMajor * 10000 +
+            ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+
+    if (ext.versionClassifier == null) {
+        if (ext.isSnapShot) {
+            ext.versionClassifier = "SNAPSHOT"
+        }
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifer
+    }
+
+    return versionName
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "30.0.1"
@@ -11,8 +39,8 @@ android {
         applicationId "br.com.henriquealtmayer.continuousintegrationanddeployment"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 4
-        versionName "1.0"
+        versionCode 5
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
