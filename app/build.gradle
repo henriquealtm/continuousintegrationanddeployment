@@ -11,15 +11,25 @@ android {
         applicationId "br.com.henriquealtmayer.continuousintegrationanddeployment"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 1
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file("../keystore/upload-keystore.jks")
+            storePassword "123456!"
+            keyAlias "upload"
+            keyPassword "Caltreyam18!!"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
