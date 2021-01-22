@@ -43,11 +43,11 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install fastlane
-        command: bundle install
+          name: Install fastlane
+          command: bundle install
       - run:
-        name: Execute fastlane
-        command: bundle exec fastlane playstore
+          name: Execute fastlane
+          command: bundle exec fastlane playstore
 
 workflows:
   build-test:
@@ -64,11 +64,6 @@ workflows:
             branches:
               ignore:
                 - master
-#      - r-build:
-#          filters:
-#            branches:
-#              only:
-#                - master
       - r-fastlane-deploy:
           filters:
             branches:
