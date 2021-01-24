@@ -36,8 +36,8 @@ jobs:
               --test <local_server_path>/<app_test_apk>.apk \
               --results-bucket cloud-test-${GOOGLE_PROJECT_ID}
 
-  d-test:
-    executor: android/android
+#  d-test:
+#    executor: android/android
 #    steps:
 #      - run:
 #          name: Build debug APK and release APK
@@ -97,13 +97,13 @@ workflows:
             branches:
               ignore:
                 - master
-      - d-test:
-          requires:
-            - d-build
-          filters:
-            branches:
-              ignore:
-                - master
+#      - d-test:
+#          requires:
+#            - d-build
+#          filters:
+#            branches:
+#              ignore:
+#                - master
       - r-fastlane-deploy:
           filters:
             branches:
